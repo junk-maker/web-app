@@ -25,7 +25,7 @@ const App = () => {
             <Frame>
                 <Routes>
                     <Route path={'/'} element={<SignIn/>}/>
-                    <Route path={'/sign-up'} element={<SignUp/>}/>
+                    {/* <Route path={'/sign-up'} element={<SignUp/>}/> */}
                 </Routes>
             </Frame>
         </ContextState>
