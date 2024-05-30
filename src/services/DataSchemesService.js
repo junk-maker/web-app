@@ -53,7 +53,7 @@ class DataSchemesService {
                 touched: false,
                 type: 'password',
                 validation: {
-                    minLength: 6,
+                    minLength: 2,
                     strength: true,
                     required: true
                 },
@@ -69,7 +69,7 @@ class DataSchemesService {
                 touched: false,
                 type: 'password',
                 validation: {
-                    minLength: 6,
+                    minLength: 2,
                     confirm: true,
                     required: true
                 },
@@ -127,7 +127,7 @@ class DataSchemesService {
                 touched: false,
                 type: 'password',
                 validation: {
-                    minLength: 6,
+                    minLength: 2,
                     strength: true,
                     required: true,
                 },
@@ -176,7 +176,7 @@ class DataSchemesService {
                 touched: false,
                 type: 'password',
                 validation: {
-                    minLength: 6,
+                    minLength: 2,
                     strength: true,
                     required: true,
                 },

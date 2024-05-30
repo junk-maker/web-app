@@ -83,7 +83,7 @@ class MarkupService {
 
     validationMarkupTemplate(control) {
         let error = control.type === 'id' ? control.value.length > 2 ? 
-            'Неверный адрес электронной почты' : control.error : control.error || 'Введите верное значение';
+            'Неверный ID' : control.error : control.error || 'Введите верное значение';
 
         return  this.validationService.isInvalid(control.valid, control.touched, !!control.validation) || control.required ?
             <div className={'form__error'}>
@@ -112,7 +112,7 @@ class MarkupService {
     passwordStrengthMarkupTemplate(form, result, control) {
         return control.validation.strength ? form.password.value.length > 1 ?
             <div className={'form__error'}>
-                <div className={this.classNamePasswordStrength(form)[result.score]}>
+                <div className={this.classNamePasswordStrength()[result.score]}>
                     <span>{result.message}</span>
                 </div>
             </div> : null : null
@@ -127,6 +127,14 @@ class MarkupService {
             'email-activation': 'Войти',
             'password-recovery': 'Сбросить',
             'verify-email': count !== 0 ? count : 'Отправить повторно',
+        };
+    };
+
+    classNamePasswordStrength() {
+        return {
+            2: 'form__medium',
+            3: 'form__strong',
+            1: 'form__heading',
         };
     };
 };

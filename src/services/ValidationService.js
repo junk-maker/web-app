@@ -1,6 +1,6 @@
 class ValidationService {
     validateId(id) {
-        let regExp = /[^\d\s]/ig;
+        let regExp = /^(\d){1,20}$/g;
         return regExp.test(String(id).trim());
     };
 
@@ -29,7 +29,7 @@ class ValidationService {
             isValid = value.trim() !== '' && isValid;
         };
 
-        if (validation.email) {
+        if (validation.id) {
             isValid = this.validateId(value) && isValid;
         };
 

@@ -8,6 +8,7 @@ import StorageService from './services/StorageService';
 import {Route, Routes, Navigate} from 'react-router-dom';
 import ValidationService from './services/ValidationService';
 import SignIn from './components/presentation/sign-in/SignIn';
+import SignUp from './components/presentation/sign-up/SignUp';
 import DataSchemesService from './services/DataSchemesService';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Frame>
                 <Routes>
                     <Route path={'/'} element={<SignIn/>}/>
+                    <Route path={'/sign-up'} element={<SignUp/>}/>
                 </Routes>
             </Frame>
         </ContextState>

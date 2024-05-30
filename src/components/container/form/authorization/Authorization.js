@@ -17,8 +17,8 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
     const {appService, markupService, storageService, validationService} = ContextData();
     let error = '';
     let email = '';
-    let setStateHandler = () => {};
     let loading = false;
+    console.log(form)
     // const response = error || email || verification || passwordReset ?
     //     error || passwordReset || email?.response || verification?.response : null
     // ;
@@ -88,11 +88,11 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
         // dispatch(activationResetStateHandler());
     }, []);
 
-    // const setStateHandler = useCallback(schema => {
-    //     let isFormValidLocal = validationService.setAuthStateHandler(schema);
-    //     setForm(schema);
-    //     setIsFormValid(isFormValidLocal);
-    // }, [setForm, setIsFormValid, validationService]);
+    const setStateHandler = useCallback(schema => {
+        let isFormValidLocal = validationService.setAuthStateHandler(schema);
+        setForm(schema);
+        setIsFormValid(isFormValidLocal);
+    }, [setForm, setIsFormValid, validationService]);
 
     // const alertResetStateHandler = useCallback(() => {
     //     let emailActivation = () => {
