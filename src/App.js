@@ -35,8 +35,8 @@ const App = () => {
                 <Routes>
                     <Route path={'/crm'} element={<ProtectedRoute><Crm/></ProtectedRoute>}/>
 
-                    <Route path={'/'} element={<Preview/>}/>
-                    <Route path={'/sign-in'} element={<SignIn/>}/>
+                    {/* <Route path={'/'} element={<Preview/>}/> */}
+                    <Route path={'/'} element={<SignIn/>}/>
                     <Route path={'/sign-up'} element={<SignUp/>}/>
                 </Routes>
             </Frame>

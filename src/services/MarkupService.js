@@ -7,11 +7,8 @@ class MarkupService {
 
     authHeadingTemplate() {
         return {
-            'faq': 'FAQ',
             'sign-up': 'Регистрация',
             'sign-in': 'Авторизация',
-            'password-reset': 'Установить пароль',
-            'password-recovery': 'Забыли пароль?',
         };
     };
 
@@ -42,7 +39,7 @@ class MarkupService {
 
     authToggleHelpTemplate(markup) {
         return {
-            'sign-in': markup,
+            '/': markup,
             'sign-up': markup,
         };
     };
@@ -123,10 +120,6 @@ class MarkupService {
         return {
             'sign-in': 'Войти',
             'sign-up': 'Создать',
-            'password-reset': 'Установить',
-            'email-activation': 'Войти',
-            'password-recovery': 'Сбросить',
-            'verify-email': count !== 0 ? count : 'Отправить повторно',
         };
     };
 
