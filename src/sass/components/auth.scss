@@ -67,12 +67,12 @@
     &__form-cell {
       width: 23em;
       padding-top: 2em;
-      padding-bottom: 2em;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
       overflow: visible;
       position: relative;
+      padding-bottom: 2em;
+      padding-left: 0.5em;
       border-radius: 0.5em;
+      padding-right: 0.5em;
       background-color: $color-white;
       box-shadow: rgba($color-black, 0.21) 0 0.1em 0.5em 0;
     }

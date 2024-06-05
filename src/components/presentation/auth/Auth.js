@@ -20,7 +20,7 @@ const Auth = ({type, token, schema, children, resetToken}) => {
                 <div className={'auth-view__container'}>
                     <div className={'auth'}>
                         <div className={'auth__header'}>
-                            {type === 'sign-in' || type === 'sign-up' || type === 'password-recovery' ? <div className={type === 'sign-up' ? 'auth__header-faq--height' : 'auth__header-faq'}>
+                            {type === 'sign-in' || type === 'sign-up' ? <div className={type === 'sign-up' ? 'auth__header-faq--height' : 'auth__header-faq'}>
                                 {/* <Button 
                                     className={'btn btn__faq'}
                                     onClick={{auth: () => setFaqPopupOpen(prev => !prev)}['auth']}
@@ -31,11 +31,11 @@ const Auth = ({type, token, schema, children, resetToken}) => {
                             <div className={type === 'sign-up' ? 'auth__header' : 'auth__header--height'}>
                                 <div className={'auth__title'}>
                                     <div className={'auth__header-wrapper'}>
-                                        <div className={'auth__header-cell'}>
+                                        {/* <div className={'auth__header-cell'}>
                                             <h1 className={'auth__header-heading'}>
                                                 {markupService.previewHeadingTemplate()['title']}
                                             </h1>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

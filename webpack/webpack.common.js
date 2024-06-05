@@ -4,6 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname, '..', './src/index.js'),
   resolve: {
+    // fallback: {
+    //   "fs": false,
+    //   // util: require.resolve("util/"),
+    //   path: false,
+
+    // },
     extensions: ['.tsx', '.ts', '.js'],
   },
   module: {

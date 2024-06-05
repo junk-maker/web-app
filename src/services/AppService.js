@@ -46,6 +46,22 @@ class AppService {
                 throw new Error(`Unknown type: ${type}`);
         };
     };
+
+    authResponse() {
+        return {
+            // 'Server Error': 'Ошибка Сервера',
+            // 'Invalid request': 'Неверный запрос',
+            // 'Password not found': 'Неверный пароль',
+            'Please provide uid': 'Пожалуйста, укажите id',
+            'Please provide password': 'Пожалуйста, укажите пароль',
+            // 'Not enough rights': 'Недостаточно прав',
+            'User not found': 'Пользователь не найден',
+            // 'Email not found': 'Электронная почта не найдена',
+            // 'Password does not match': 'Пароль не совпадает',
+            'User already registered': 'Пользователь уже зарегистрирован',
+            'Please provide your id and password': 'Пожалуйста, предоставьте свой id и пароль',
+        };
+    };
 };
 
 export default AppService;

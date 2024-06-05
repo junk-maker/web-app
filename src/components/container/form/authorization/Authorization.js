@@ -3,26 +3,36 @@ import useAuth from '../../../../hooks/auth-hook';
 import {Link, useNavigate} from 'react-router-dom';
 import {ContextData} from '../../../../context/Context';
 import Input from '../../../presentation/ui/input/Input';
+import openAlert from '../../../../hooks/open-alert-hook';
+import useTelegram from '../../../../hooks/telegram-hook';
 import Button from '../../../presentation/ui/button/Button';
-// import useIsOpened from '../../../../hooks/open-alert-hook';
 import useValidation from '../../../../hooks/validation-hook';
-// import AlertPopup from '../../../presentation/ui/popup/AlertPopup';
+import {authReducer} from '../../../../store/reducer/authReducer';
+import {INITIAL_STATE} from '../../../../store/reducer/authReducer';
 import BtnLoader from '../../../presentation/ui/btn-loader/BtnLoader';
-import React, {memo, useMemo, useEffect, useContext, useCallback} from 'react';
+import AlertPopup from '../../../../components/presentation/ui/popup/AlertPopup';
+import React, {memo, useMemo, useEffect, useReducer, useContext, useCallback} from 'react';
+import {authEventHandler, authResetStateHandler} from '../../../../store/reducer/authEventHandler';
+// import {authenticationStore} from '../../../../store/authStore';
 
 const Authorization = memo(({type, token, schema, children, resetToken}) => {
+    const {tg} = useTelegram();
     const navigate = useNavigate();
     const {isFormValid, setIsFormValid} = useValidation();
+    const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
     const {form, count, setForm, setCount} = useAuth(30, type, schema);
     const {appService, markupService, storageService, validationService} = ContextData();
-    let error = '';
-    let email = '';
-    let loading = false;
-    console.log(form)
-    // const response = error || email || verification || passwordReset ?
-    //     error || passwordReset || email?.response || verification?.response : null
-    // ;
-    
+    const {id, data, loading} = state;
+    // let error = '';
+    // let email = '';
+    // let loading = false;
+    // console.log(form.id.value)
+    // let {loading} = authenticationStore.getState();
+    // console.log(data, 'data');
+    // console.log(form?.id?.value, 'form?.id?.value')
+
+    const response = data.error ? data.error : null;
+    console.log(response, 'response')
     // const loginData = useMemo(() => {return {
     //     type,
     //     navigate,
@@ -61,9 +71,12 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
     //     if (storageService.getItem('authToken') && parts.length === 2) return navigate('/features');
     // }, [navigate, storageService]);
 
-    const loginHandler = useCallback(() => {
+    const loginHandler = useCallback(async () => {
+        await authEventHandler('sign-in', form?.id?.value, form?.password?.value, dispatch);
+        // await authenticationStore.setState({loading: true});
+        // await authenticationStore.fetchAuth(form.id.value, 'sign-in', form.password.value)
         // dispatch(actionToSignIn(loginData));
-    }, []);
+    }, [form?.id?.value, form?.password?.value]);
 
     const registerHandler = useCallback(() => {
         // dispatch(actionToSignUp(registerData));
@@ -94,45 +107,18 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
         setIsFormValid(isFormValidLocal);
     }, [setForm, setIsFormValid, validationService]);
 
-    // const alertResetStateHandler = useCallback(() => {
-    //     let emailActivation = () => {
-    //         navigate('/sign-in');
-    //         dispatch(activationResetStateHandler());
-    //     };
-    //     let resetPassword  = () => {
-    //         navigate('/sign-in');
-    //         dispatch(resetPasswordResetStateHandler());
-    //     };
-    //     let verifyEmail = () => {
-    //         if (!verification) {
-    //             navigate('/sign-in');
-    //             dispatch(resetEmailVerificationStateHandler());
-    //         } else {
-    //             dispatch(resetEmailVerificationStateHandler());
-    //         };
-    //     };
+    const alertResetStateHandler = useCallback(() => {
+        let resetState = () => {
+            setForm(schema);
+            setIsFormValid(false); 
+            authResetStateHandler(dispatch);
+        };
 
-    //     let resetState = () => {
-    //         let toggle = {
-    //             'sign-in': authResetStateHandler(),
-    //             'sign-up': authResetStateHandler(),
-    //             'password-recovery': resetPasswordRecoveryStateHandler(),
-    //         }[type];
-
-    //         setForm(schema);
-    //         dispatch(toggle);
-    //         setIsFormValid(false); 
-    //     };
-
-    //     return {
-    //         'sign-in':  resetState,
-    //         'sign-up':  resetState,
-    //         'verify-email': verifyEmail,
-    //         'password-recovery': resetState,
-    //         'password-reset': resetPassword,
-    //         'email-activation': emailActivation,
-    //     }[type]();
-    // }, [type, schema, dispatch, navigate, setForm, verification, setIsFormValid]);
+        return {
+            'sign-in':  resetState,
+            'sign-up':  resetState,
+        }[type]();
+    }, [type, schema, dispatch, setForm, setIsFormValid]);
 
     const input = useCallback((name, result, control) => (
         <Input
@@ -141,17 +127,17 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
             value={control.value}
             autoComplete={control.autocomplete}
             strength={control.validation.strength}
-            className={!error ? (!control.touched  ? 'input' :
+            className={!data.error ? (!control.touched  ? 'input' :
                 validationService.isInvalid(control.valid, control.touched, !!control.validation) || (control.validation.confirm &&
                     form.password.value !==  form.confirmPassword.value) ||
                     (control.validation.strength && result.score < 2) ? 'input error' : 'input success') : 'input error'
             }
             onChange={e => validationService.changeHandler(e, name, form, setStateHandler)}
         />
-    ), [form, error, setStateHandler, validationService]);
+    ), [form, data, setStateHandler, validationService]);
 
-    const classNameExpression = useMemo(() => !error ?
-        (!loading ? !isFormValid || email?.response ? 'auth__btn-off' : 'auth__btn-on' : 'auth__btn-off') : 'auth__btn-off', [error, loading, email?.response, isFormValid]
+    const classNameExpression = useMemo(() => !data.error ?
+        (!loading ? !isFormValid || id?.response ? 'auth__btn-off' : 'auth__btn-on' : 'auth__btn-off') : 'auth__btn-off', [data, loading, id?.response, isFormValid]
     );
 
     const createAuthInput = useCallback((name, control) => markupService.inputTemplate(form, name, input, control), [form, input, markupService]);
@@ -172,52 +158,38 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
         </div>
     </div>, [type, appService, markupService]);
 
-    // const alert = <AlertPopup onReset={alertResetStateHandler}>
-    //     {error || email || verification || passwordReset ? appService.authResponse()[response] : null}
-    // </AlertPopup>;
-
-    const classNameForTitle = useMemo(() => type === 'verify-email' || type === 'email-activation'? 'auth__form-heading auth__form-verify' : 'auth__form-heading', [type]);
+    const alert = <AlertPopup onReset={alertResetStateHandler}>
+        {data.error ? appService.authResponse()[response] : null}
+    </AlertPopup>;
 
     const disabledForButton = useMemo(() => {
         return {
-            'email-activation': true,
-            'verify-email': count !== 0,
-            'sign-in': !error ? (!loading ? !isFormValid : true) : true,
-            'sign-up': !error ? (!loading ? !isFormValid : true) : true,
-            'password-reset': !error ? (!loading ? !isFormValid : true) : true,
-            'password-recovery': !error ? (!loading ? !isFormValid : true) : true,
+            'sign-in': !data.error ? (!loading ? !isFormValid : true) : true,
+            'sign-up': !data.error ? (!loading ? !isFormValid : true) : true,
         }[type];
-    }, [type, count, error, loading, isFormValid]);
+    }, [type, data.error, loading, isFormValid]);
 
     const classNameForButton = useMemo(() => {
         return {
             'sign-in': classNameExpression,
             'sign-up': classNameExpression,
-            'email-activation': 'auth__btn-on',
-            'password-reset': classNameExpression,
-            'password-recovery': classNameExpression,
-            'verify-email': count !== 0 ? 'auth__btn-off' : 'auth__btn-on',
         }[type];
-    }, [type, count, classNameExpression]);
+    }, [type, classNameExpression]);
 
     const onClickForButton = useMemo(() => {
         return {
             'sign-in': loginHandler,
             'sign-up': registerHandler,
-            'verify-email': verifyHandler,
-            'password-reset': resetPasswordHandler,
-            'email-activation': emailActivationHandler,
-            'password-recovery': recoverPasswordHandler,
         }[type];
-    }, [type, loginHandler, registerHandler, verifyHandler, resetPasswordHandler, emailActivationHandler, recoverPasswordHandler]);
+    }, [type, loginHandler, registerHandler]);
 
     const authToggleHelpTemplate = useMemo(() => markupService.authToggleHelpTemplate(markup)[type], [type, markup, markupService]);
 
-    const authHelpLink = useMemo(() => <Link to={appService.authHelpLink()[type]}>
-        <div className={'auth__form-help__heading'}>
-            <span>{markupService.authHelpTemplate()[type]}</span>
-        </div>
-    </Link>, [type, appService, markupService]);
+    // const authHelpLink = useMemo(() => <Link to={appService.authHelpLink()[type]}>
+    //     <div className={'auth__form-help__heading'}>
+    //         <span>{markupService.authHelpTemplate()[type]}</span>
+    //     </div>
+    // </Link>, [type, appService, markupService]);
 
     const renderSwitch = useMemo(() => appService.renderSwitch(type, form, children, createAuthInput), [type, form, children, appService, createAuthInput]);
 
@@ -227,7 +199,7 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
                 <div className={'auth__form-wrapper'}>
                     <div className={'auth__form-cell'}>
                         <div className={'auth__form-title'}>
-                            <div className={classNameForTitle}>
+                            <div className={'auth__form-heading'}>
                                 <span>{markupService.authHeadingTemplate()[type]}</span>
                             </div>
                         </div>
@@ -249,18 +221,18 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
                                     </div>
                                 </Button>
                             </div>
-                            {
+                            {/* {
                                 type === 'sign-in' || type === 'sign-up' || type === 'password-recovery' ? <div className={'auth__form-help'}>
                                     {authHelpLink}
                                 </div> : null
-                            }
+                            } */}
                         </form>
                     </div>
                 </div>
                 {authToggleHelpTemplate}
             </div>
             
-            {/* {useIsOpened(response) && alert} */}
+            {openAlert(response) && alert}
         </>
     );
 });
