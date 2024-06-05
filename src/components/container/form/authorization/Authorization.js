@@ -18,9 +18,10 @@ import {authEventHandler, authResetStateHandler} from '../../../../store/reducer
 const Authorization = memo(({type, token, schema, children, resetToken}) => {
     const {tg} = useTelegram();
     const navigate = useNavigate();
+    const uid = tg.initDataUnsafe.user.id;
     const {isFormValid, setIsFormValid} = useValidation();
-    const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);
     const {form, count, setForm, setCount} = useAuth(30, type, schema);
+    const [state, dispatch] = useReducer(uid, authReducer, INITIAL_STATE);
     const {appService, markupService, storageService, validationService} = ContextData();
     const {id, data, loading} = state;
     // let error = '';
@@ -76,11 +77,12 @@ const Authorization = memo(({type, token, schema, children, resetToken}) => {
         // await authenticationStore.setState({loading: true});
         // await authenticationStore.fetchAuth(form.id.value, 'sign-in', form.password.value)
         // dispatch(actionToSignIn(loginData));
-    }, [form?.id?.value, form?.password?.value]);
+    }, [form?.id?.value, form?.password?.value, dispatch]);
 
-    const registerHandler = useCallback(() => {
+    const registerHandler = useCallback(async () => {
+        await authEventHandler('sign-up', form?.id?.value, form?.password?.value, dispatch);
         // dispatch(actionToSignUp(registerData));
-    }, []);
+    }, [form?.id?.value, form?.password?.value, dispatch]);
 
     const resetPasswordHandler = useCallback(() => {
         // dispatch(actionToPasswordReset(passwordResetData))

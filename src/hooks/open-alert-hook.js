@@ -1,8 +1,5 @@
 import {useMemo} from 'react';
 
-const openAlert = (arg) => useMemo(() => {
-    console.log(!!arg, 'arg')
-    return !!arg
-}, [arg]);
+const openAlert = (arg) => useMemo(() => !!arg, [arg]);
 
 export default openAlert;

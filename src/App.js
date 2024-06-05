@@ -1,9 +1,10 @@
 import './App.scss';
-import React, {useMemo, useEffect} from 'react';
 import Frame from './hoc/frame/Frame';
 import {ContextState} from './context/Context';
 import AppService from './services/AppService';
 import useTelegram from './hooks/telegram-hook';
+import React, {useMemo, useEffect} from 'react';
+import Crm from './components/container/Crm/Crm';
 import MarkupService from './services/MarkupService';
 import StorageService from './services/StorageService';
 import {Route, Routes, Navigate} from 'react-router-dom';
@@ -12,6 +13,7 @@ import Preview from './components/container/preview/Preview';
 import SignIn from './components/presentation/sign-in/SignIn';
 import SignUp from './components/presentation/sign-up/SignUp';
 import DataSchemesService from './services/DataSchemesService';
+import ProtectedRoute from './components/presentation/protectedRoute/protectedRoute';
 
 const App = () => {
     let {tg} = useTelegram();
@@ -31,6 +33,8 @@ const App = () => {
         }}>
             <Frame>
                 <Routes>
+                    <Route path={'/crm'} element={<ProtectedRoute><Crm/></ProtectedRoute>}/>
+
                     <Route path={'/'} element={<Preview/>}/>
                     <Route path={'/sign-in'} element={<SignIn/>}/>
                     <Route path={'/sign-up'} element={<SignUp/>}/>

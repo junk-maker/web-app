@@ -2,7 +2,7 @@
 // import {authReducer} from './authReducer';
 // import {INITIAL_STATE} from './authReducer';
 import {ACTION_TYPES} from './authActionTypes'
-import {httpLinksService} from '../../services/httpLinksService';
+import {httpLinksService} from '../../services/HttpLinksService';
 
 export const authEventHandler = async (type, uid, password, dispatch) => {
     dispatch({type: ACTION_TYPES.FETCH_START});

@@ -1,4 +1,7 @@
 import {ACTION_TYPES} from './authActionTypes';
+import StorageService from '../../services/StorageService';
+
+let storage = new StorageService();
 
 export const INITIAL_STATE = {
   token: '',
@@ -10,7 +13,7 @@ export const INITIAL_STATE = {
   },
 };
 
-export const authReducer = (state, action) => {
+export const authReducer = (id, state, action) => {
   switch (action.type) {
     case ACTION_TYPES.FETCH_START:
       return {
@@ -23,6 +26,7 @@ export const authReducer = (state, action) => {
         },
       };
     case ACTION_TYPES.FETCH_SUCCESS:
+      storage.setItem(id, action.payload.token);
       return {
         ...state,
         loading: false,
