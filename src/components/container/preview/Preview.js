@@ -9,10 +9,10 @@ const Preview = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   setLoading(false);
-    //   navigate('/sign-in');
-    // }, 3000);
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/sign-in');
+    }, 3000);
     // if (!!tg.ready() === true) {
     //   let path = window.location.pathname;
     //   let parts = path.split('/');
