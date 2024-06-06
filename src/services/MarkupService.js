@@ -39,7 +39,7 @@ class MarkupService {
 
     authToggleHelpTemplate(markup) {
         return {
-            '/': markup,
+            'sign-in': markup,
             'sign-up': markup,
         };
     };
@@ -48,7 +48,6 @@ class MarkupService {
         return {
             'sign-up': 'Нужна помощь?',
             'sign-in': 'Нужна помощь?',
-            'password-recovery': 'На главную',
         };
     };
 

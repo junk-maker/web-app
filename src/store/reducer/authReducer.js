@@ -13,7 +13,7 @@ export const INITIAL_STATE = {
   },
 };
 
-export const authReducer = (id, state, action) => {
+export const authReducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPES.FETCH_START:
       return {
@@ -26,7 +26,7 @@ export const authReducer = (id, state, action) => {
         },
       };
     case ACTION_TYPES.FETCH_SUCCESS:
-      storage.setItem(id, action.payload.token);
+      // storage.setItem(id, action.payload.token);
       return {
         ...state,
         loading: false,
