@@ -10,8 +10,11 @@
     }
     &__header {
       margin: 0 auto;
-      &--height {
+      &--sign-in {
         height: 9em;
+      }
+      &--sign-up {
+        height: 6em;
       }
     }
     &__header-faq {
