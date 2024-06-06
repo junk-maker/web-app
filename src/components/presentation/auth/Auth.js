@@ -28,7 +28,7 @@ const Auth = ({type, token, schema, children, resetToken}) => {
                                     <span>{markupService.previewHeadingTemplate()['faq']}</span>
                                 </Button> */}
                             </div> : null}
-                            <div className={type === 'sign-up' ? 'auth__header' : 'auth__header--height'}>
+                            <div className={'auth__header--height'}>
                                 <div className={'auth__title'}>
                                     <div className={'auth__header-wrapper'}>
                                         {/* <div className={'auth__header-cell'}>
