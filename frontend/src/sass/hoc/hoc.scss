@@ -1,0 +1,12 @@
+.frame {
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    max-width: 48em;
+    min-height: 100vh;
+    position: relative;
+    align-items: stretch;
+    // background: black;
+    flex-direction: column;
+}

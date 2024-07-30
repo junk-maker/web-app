@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  color: #000;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow: hidden;
+  background: #ecf0f1;
+  box-sizing: border-box;
+  font-family: Open Sans, sans-serif;
+}

@@ -1,0 +1,129 @@
+.auth {
+  height: 100vh;
+  color: $color-primary;
+  font-family: $font-family-primary;
+  background: linear-gradient(315deg, rgba($color-primary-light, 0.8) 0%, rgba($color-primary-dark, 0.8) 74%);
+  &__span {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Open Sans, sans-serif;
+  }
+  &__header {
+    margin: 0 auto;
+    &--sign-in {
+      height: 9em;
+    }
+    &--sign-up {
+      height: 6em;
+    }
+  }
+  &__form {
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__form-cell {
+    width: 25em;
+    padding-top: 2em;
+    overflow: visible;
+    position: relative;
+    padding-bottom: 2em;
+    padding-left: 0.5em;
+    border-radius: 0.5em;
+    padding-right: 0.5em;
+    background-color: $color-white;
+    box-shadow: rgba($color-black, 0.21) 0 0.1em 0.5em 0;
+  }
+  &__form-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__form-heading {
+    display: block;
+    cursor: default;
+    font-size: 1.2em;
+    font-weight: 600;
+    font-style: normal;
+  }
+  &__form-verify {
+      margin: 0 auto;
+  }
+  &__form-entry {
+    width: 100%;
+    margin: 1.2em 0;
+  }
+  &__form-btn {
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  }
+  &__form-btn__title{
+    opacity: 1;
+    display: block;
+    cursor: inherit;
+    font-size: 1.3em;
+    font-weight: 600;
+    font-style: normal;
+    line-height: inherit;
+    text-transform: none;
+  }
+  &__form-help {
+    margin-top: 0.6em;
+    text-align: center;
+    margin-bottom: -2.5em;
+  }
+  &__form-help a {
+    text-decoration: none;
+  }
+  &__form-help__heading {
+    font-size: 0.9em;
+    color: $color-blue;
+  }
+  &__form-toggle {
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: none;
+    text-decoration: none;
+  }
+  &__form-toggle__cell {
+    display: flex;
+    margin-top: 0.6em;
+    justify-content: center;
+  }
+  &__form-toggle__title {
+    opacity: 1;
+    display: block;
+    cursor: default;
+    font-size: 0.9em;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: none;
+    line-height: inherit;
+    color: rgba($color-white, 0.4);
+  }
+  &__form-toggle__link {
+    opacity: 1;
+    display: block;
+    cursor: inherit;
+    font-size: 0.9em;
+    font-style: normal;
+    line-height: inherit;
+    text-transform: none;
+  }
+  &__form-toggle__link a {
+    text-decoration: none;
+  }
+  &__form-toggle__heading {
+    color: rgba($color-white, 0.9);
+  }
+}

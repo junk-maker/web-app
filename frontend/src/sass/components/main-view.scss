@@ -1,0 +1,7 @@
+.main-view {
+    display: flex;
+    &__container {
+        width: 95%;
+        user-select: none;
+    }
+}
