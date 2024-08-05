@@ -4,7 +4,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {ContextData} from '../../../../context/Context';
 import Input from '../../../presentation/ui/input/Input';
 import openAlert from '../../../../hooks/open-alert-hook';
-import useTelegram from '../../../../hooks/telegram-hook';
+// import useTelegram from '../../../../hooks/telegram-hook';
 import Button from '../../../presentation/ui/button/Button';
 import useValidation from '../../../../hooks/validation-hook';
 import {authReducer} from '../../../../store/reducer/authReducer';
@@ -16,9 +16,9 @@ import {authEventHandler, authResetStateHandler} from '../../../../store/reducer
 // import {authenticationStore} from '../../../../store/authStore';
 
 const Authorization = memo(({type, token, schema, children, resetToken}) => {
-    const {tg} = useTelegram();
+    // const {tg} = useTelegram();
     const navigate = useNavigate();
-    const uid = tg?.initDataUnsafe?.user?.id;
+    // const uid = tg?.initDataUnsafe?.user?.id;
     const {isFormValid, setIsFormValid} = useValidation();
     const {form, count, setForm, setCount} = useAuth(30, type, schema);
     const [state, dispatch] = useReducer(authReducer, INITIAL_STATE);

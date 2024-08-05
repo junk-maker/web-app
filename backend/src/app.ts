@@ -49,11 +49,11 @@ class App {
 
     private serveFrontend() {
         if (process.env.NODE_ENV === 'production') {
-            this.express.use(express.static(path.join(__dirname, '../frontend/build')));
-          
+            this.express.use(express.static(path.join(__dirname, '../../frontend/build')));
+
             this.express.get('*', (req: Request, res: Response) =>
               res.sendFile(
-                path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+                path.resolve(__dirname, '..', '..', 'frontend', 'build', 'index.html')
               )
             );
           } else {
@@ -70,7 +70,7 @@ class App {
     public listen(): void {
         this.errorHandling();
         this.express.listen(this.port, () => {
-            console.log(this.blue, `Server has been started on port ${this.port}!`);
+            console.log(this.blue, `Server has been started on port! ${this.port}!`);
         });
     };
 };

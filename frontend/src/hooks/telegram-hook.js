@@ -1,7 +1,7 @@
-let tg = window.Telegram.WebApp;
+// let tg = window.Telegram.WebApp;
 
-const useTelegram = () => {
-    return {tg};
-};
+// const useTelegram = () => {
+//     return {tg};
+// };
 
-export default useTelegram;
+// export default useTelegram;
